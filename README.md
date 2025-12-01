@@ -1,4 +1,5 @@
 AWS Cloud Infrastructure Automation Project
+
 Overview: This repository contains the complete implementation of an end-to-end cloud deployment project that integrates Terraform, AWS CloudFormation, AWS Lambda, S3, EC2, and Python Boto3. The objective of this project is to design, automate, and validate a cloud architecture following Infrastructure-as-Code (IaC) principles while demonstrating practical interaction with AWS services using both the AWS Console, AWS CLI, and Python SDK (Boto3). The repository is organized to reflect a real-world workflow commonly used by cloud engineers, DevOps teams, and solution architects. Every component has been implemented, tested, and documented to ensure reproducibility and clarity for academic evaluation.
 
 1. Project Architecture: The automated environment includes:
@@ -25,9 +26,7 @@ The infrastructure follows a multi-tier design where the web server components r
 │   ├── outputs.tf
 │
 ├── cloudformation/
-│   ├── application-stack.yaml
-│   ├── rds-stack.yaml
-│   └── lambda-stack.yaml
+│   ├── cloudformation-app.yaml
 │
 ├── boto3-scripts/
 │   ├── create_bucket_and_upload.py
