@@ -1,44 +1,71 @@
 AWS Cloud Infrastructure Automation Project
-A fully automated cloud deployment built using Terraform, AWS CloudFormation, AWS Lambda, API Gateway, Step Functions, and Python Boto3. This repository demonstrates multi-tier architecture design, serverless workflows, and end-to-end cloud automation following Infrastructure-as-Code principles.
 
-Overview: This repository contains the complete implementation of an end-to-end cloud deployment project that integrates:
-  Terraform
-  AWS CloudFormation
-  AWS Lambda
-  S3
-  EC2
-  RDS
-  Python Boto3
-  API Gateway
-  Step Functions
-The objective is to design, automate, and validate a cloud architecture using IaC while demonstrating real-world AWS interactions using the AWS Console, AWS CLI, and Boto3.
-The workflow mirrors industry practices followed by cloud engineers and DevOps teams.
+This repository contains the complete implementation of an automated, multi-tier cloud environment developed using Terraform, AWS CloudFormation, AWS Lambda, API Gateway, Step Functions, and Python Boto3. The project follows Infrastructure-as-Code (IaC) principles and demonstrates a full workflow used by cloud engineers and DevOps teams to design, deploy, automate, and validate an AWS-based architecture.
 
-Technologies Used
-  Terraform – VPC, Subnets, Routing, Security Groups
-  AWS CloudFormation – EC2, ALB, Auto Scaling, RDS
-  AWS Lambda (Python) – S3 event processing
-  Amazon S3 – Object storage and Lambda triggers
-  Amazon RDS (MySQL) – Database backend
-  API Gateway – HTTP-based Lambda invocation
-  AWS Step Functions – Workflow orchestration
-  AWS CLI – Command-line resource management
-  Python Boto3 – Programmatic AWS automation
+⭐ Project Overview
 
-1. Project Architecture
-The automated environment includes:
-  Custom VPC with public and private subnets
-  Internet Gateway and NAT Gateway
-  Route Tables for public and private traffic
-  Security Groups following least-privilege principles
-  EC2 Instance hosting a simple web application
-  Application Load Balancer (ALB)
-  RDS MySQL Database (via CloudFormation)
-  Lambda Function for S3 event-driven processing
-  CloudWatch Logging Integration
-The deployment follows a multi-tier architecture, where web components reside in public subnets, and the database layer is isolated within private subnets.
+This project automates every core component of a modern AWS environment, integrating:
 
-2. Repository Structure
+Terraform – VPC, subnets, routing, and security
+
+AWS CloudFormation – EC2, ALB, Auto Scaling, RDS
+
+Lambda Functions – event-driven S3 processing
+
+Amazon S3 – object storage + Lambda triggers
+
+Amazon EC2 – web application hosting
+
+Amazon RDS (MySQL) – database backend
+
+API Gateway – HTTP-based serverless invocation
+
+AWS Step Functions – workflow orchestration
+
+AWS CLI – operational cloud management
+
+Python Boto3 – programmatic AWS automation
+
+The goal is to build a real-world, production-aligned system demonstrating automation, scalability, observability, and serverless event handling.
+
+🚀 Technologies Used
+Technology	Purpose
+Terraform	Network layer (VPC, subnets, routing, SGs)
+CloudFormation	Compute + database stack (EC2, ASG, ALB, RDS)
+AWS Lambda	S3 event-driven processing
+Amazon S3	File storage + triggers
+Amazon RDS	Persistent MySQL backend
+API Gateway	HTTP endpoints for Lambda
+Step Functions	Orchestrated serverless workflows
+AWS CLI	Resource validation + operations
+Python Boto3	Scripted AWS interactions
+🏗️ 1. Architecture Summary
+
+The deployment follows a multi-tier cloud architecture consisting of:
+
+A custom VPC with isolated public and private subnets
+
+NAT Gateway for private subnet outbound internet access
+
+Internet Gateway for public subnet traffic
+
+Route Tables configured for segmentation
+
+Security Groups following least-privilege patterns
+
+EC2 Application Tier behind an Application Load Balancer
+
+Auto Scaling Group for EC2 workload elasticity
+
+Private RDS MySQL instance
+
+Lambda function triggered by S3 uploads
+
+CloudWatch Logs for monitoring and debugging
+
+📌 The architecture diagram is included in the repository.
+
+📁 2. Repository Structure
 ├── terraform/
 │   ├── provider.tf
 │   ├── variables.tf
@@ -61,169 +88,209 @@ The deployment follows a multi-tier architecture, where web components reside in
 ├── architecture-diagram.png
 └── README.md
 
-3. Terraform Implementation
-Terraform provisions networking infrastructure:
-  Custom VPC + CIDR
-  Public & private subnets
-  Internet Gateway & NAT Gateway
-  Route Tables
-  Security Groups
-  Outputs exposing resource IDs for CloudFormation
+🌐 3. Terraform Implementation
 
-How to Deploy
-  terraform init
-  terraform validate
-  terraform plan
-  terraform apply
+Terraform provisions the entire network layer, including:
 
-Destroy
-  terraform destroy
+Custom VPC
 
-.gitignore ensures sensitive state files like terraform.tfstate are not committed.
+Public & private subnets
 
-4. CloudFormation Stacks
-EC2 Web Application Stack
-  EC2 instance with user-data installing Apache
-  ALB + Target Group
-  Auto Scaling Group
-  Security groups and IAM roles
+Route tables and subnet associations
+
+Internet Gateway & NAT Gateway
+
+Security groups for ALB, EC2, and database
+
+Deployment Steps
+terraform init
+terraform validate
+terraform plan
+terraform apply
+
+Destroy Infrastructure
+terraform destroy
+
+
+🔒 Terraform state files are excluded via .gitignore.
+
+🧱 4. CloudFormation Stacks
+
+CloudFormation deployed the application layer:
+
+EC2 Application Stack
+
+EC2 instance with Apache auto-installation (via UserData)
+
+Launch Template + Auto Scaling Group
+
+Application Load Balancer + Target Group
+
+Security Groups
 
 RDS Stack
-  MySQL database
-  Private subnet placement
-  Multi-AZ capability
+
+MySQL database in private subnets
+
+Secure connectivity routed only from EC2
 
 Lambda Stack
-  Python Lambda (S3 event logging)
-  IAM execution role
-  CloudWatch logs
 
-5. AWS Lambda: S3 Event Logging
-The Lambda function automatically logs every new S3 upload.
+Python Lambda function for S3 upload logging
 
-Key Responsibilities
-  Capture bucket name & object key
-  Log to CloudWatch
-  Demonstrate event-driven architecture
+IAM execution role
+
+CloudWatch log groups
+
+🪝 5. AWS Lambda – S3 Event Logging
+
+A Python-based Lambda function logs metadata whenever a file is uploaded into the S3 bucket.
+
+Responsibilities
+
+Capture object key + bucket name
+
+Record structured logs in CloudWatch
+
+Demonstrate serverless + event-driven design
 
 Trigger
-  S3 (ObjectCreated) → Lambda
+S3 (ObjectCreated) → Lambda → CloudWatch Logs
 
-6. AWS CLI Interaction
-Demonstrates operational AWS management using CLI.
+🖥️ 6. AWS CLI Interaction
+
+The AWS CLI was used to validate resources and manage cloud components.
 
 Examples
 
-List running EC2 instances
-  aws ec2 describe-instances --filters Name=instance-state-name,Values=running
+List running EC2 instances:
 
-Invoke Lambda
-  aws lambda invoke --function-name <lambda-name> output.json
+aws ec2 describe-instances --filters Name=instance-state-name,Values=running
 
-Create S3 bucket
-  aws s3 mb s3://mybucket-unique-id
 
-7. Python Boto3 Scripts: Python scripts were developed to automate AWS tasks programmatically.
+Invoke Lambda:
+
+aws lambda invoke --function-name <lambda-name> output.json
+
+
+Create S3 bucket:
+
+aws s3 mb s3://mybucket-unique-id
+
+🐍 7. Python Boto3 Automation Scripts
+
+Python scripts were developed to automate AWS operations:
 
 Included Scripts
-  Create S3 bucket & Upload object
-  Retrieve EC2 instance metadata
-  List running EC2 instances
-  Invoke Lambda function programmatically
 
-Running a Script: python create_bucket_and_upload.py
+Create S3 bucket & upload file
 
-All scripts include error handling and AWS authentication via IAM roles or credentials stored in the AWS CLI configuration.
+Retrieve EC2 instance metadata
 
-8. Architecture Diagram
-A high-level architecture diagram is included to illustrate:
-  VPC layout
-  Network segmentation
-  Routing architecture
-  Application flow from user → ALB → EC2 → S3/Lambda
-  Database isolation
-This diagram helps visualize the deployment and is suitable for academic reports.
+List running EC2 instances
 
-9. Bonus Implementation: API Gateway → Lambda Integration
-To extend the serverless capabilities of the infrastructure, an HTTP API Gateway was implemented and integrated with the Lambda function. This enables invocation of serverless compute through standard HTTPS requests.
+Invoke Lambda programmatically
 
-Configuration
-  API Type: HTTP API
-  Route: ANY /
-  Stage: $default
-  Integration: Lambda Proxy Integration
-  Region: us-east-1
-  Invoke URL (example): https://<api-id>.execute-api.us-east-1.amazonaws.com/
+Run Any Script
+python script_name.py
 
-Purpose
-This bonus task demonstrates:
-  API-driven serverless execution
-  Lambda invocation via HTTP
-  Cloud-native request handling
-  Event transformation between API Gateway and Lambda
 
-Lambda Response Output
-{
-  "message": "Hello from Sahil's Lambda via API Gateway!"
-}
+Scripts include exception handling, AWS authentication, and parameterization.
 
-This output confirms that the API Gateway successfully triggers Lambda and returns structured JSON to the client.
+🗺️ 8. Architecture Diagram
 
-10. Bonus Implementation: AWS Step Functions Workflow
-A three-step AWS Step Functions workflow was created to demonstrate orchestration and automation of serverless tasks.
+The repository includes a high-level architecture diagram that illustrates:
 
-Workflow Overview
-The State Machine coordinates three Lambda functions:
-  Step1Start – Initializes the workflow
-  Step2Process – Performs intermediate processing
-  Step3Finish – Returns completion response
+VPC + subnet design
 
-State Machine Logic
-  "StartAt": "Step1",
-  "States": {
-    "Step1": { "Type": "Task", "Next": "Step2" },
-    "Step2": { "Type": "Task", "Next": "Step3" },
-    "Step3": { "Type": "Task", "End": true }
-  }
+Routing architecture
 
-Purpose
-This implementation demonstrates:
-  Cloud-native orchestration
-  Serverless workflow automation
-  Event chaining between Lambda functions
-  Step-by-step visual execution using AWS Step Functions Graph Inspector
+ALB → EC2 → RDS request flow
 
-The workflow successfully executed all three steps in sequence, confirming proper orchestration and integration.
+S3 → Lambda event processing
 
-11. How to Reproduce the Entire Project
-Prerequisites:
-  AWS Account
-  IAM user with administrative privileges
-  AWS CLI installed and configured
-  Terraform 1.x
-  Python 3.9+
-  boto3 and requests library
+Step Functions workflow chain
 
-Deployment Workflow:
-  Clone this repository
-  Deploy Terraform networking layer
-  Deploy CloudFormation application and database stacks
-  Upload Lambda function code
-  Configure S3 triggers
-  Run Boto3 automation scripts
-  Validate logs and infrastructure via AWS Console
-  Clean up resources after evaluation
+This diagram is also embedded in the final PDF report.
 
-12. Academic Integrity & Notes:
-This project was developed as part of a graduate-level course requirement focusing on:
-  Infrastructure-as-Code methodology
-  Cloud automation
-  Serverless design patterns
-  Event-driven programming
-  AWS service integration
-All components have been independently implemented, tested, and documented.
+🎯 9. Bonus Implementation: API Gateway → Lambda
 
-13. Author
-Sahil Shahi (IM58977)
+As part of extra credit, an HTTP API Gateway triggers a Lambda function via a REST endpoint.
+
+Configuration Highlights
+
+Route: ANY /
+
+Stage: $default
+
+Integration: Lambda Proxy
+
+Output returns a JSON message
+
+This validates HTTP-based Lambda invocation and cloud-native serverless routing.
+
+🔄 10. Bonus Implementation: AWS Step Functions Workflow
+
+A three-state Step Functions machine orchestrates multiple Lambda functions:
+
+Step1Start
+
+Step2Process
+
+Step3Finish
+
+The graph visually displays execution sequence and successful termination.
+
+This demonstrates event chaining and workflow automation.
+
+🔧 11. How to Reproduce the Entire Project
+Prerequisites
+
+AWS Account
+
+AWS CLI configured
+
+Terraform installed
+
+Python 3.9+
+
+boto3 library
+
+Deployment Flow
+
+Clone the repository
+
+Run Terraform to build the network
+
+Deploy CloudFormation to launch compute & DB
+
+Upload Lambda code + configure S3 triggers
+
+Run Boto3 scripts
+
+Test end-to-end flows using Console, CLI, and API Gateway
+
+Clean up AWS resources
+
+📘 12. Academic Integrity & Notes
+
+This project was developed as part of graduate coursework focusing on:
+
+Infrastructure-as-Code
+
+Cloud automation
+
+Serverless architecture
+
+Event-driven design
+
+AWS service integration
+
+All implementations were completed independently and tested using real AWS environments.
+
+👤 13. Author
+
+Sahil Shahi
 Graduate Student – M.S. Information Systems
 University of Maryland, Baltimore County
+Student ID: IM58977
