@@ -2,7 +2,7 @@ AWS Cloud Infrastructure Automation Project
 
 This repository contains the complete implementation of an automated, multi-tier cloud environment developed using Terraform, AWS CloudFormation, AWS Lambda, API Gateway, Step Functions, and Python Boto3. The project follows Infrastructure-as-Code (IaC) principles and demonstrates a full workflow used by cloud engineers and DevOps teams to design, deploy, automate, and validate an AWS-based architecture.
 
-⭐ Project Overview
+Project Overview
 
 This project automates every core component of a modern AWS environment, integrating:
 
@@ -28,7 +28,7 @@ Python Boto3 – programmatic AWS automation
 
 The goal is to build a real-world, production-aligned system demonstrating automation, scalability, observability, and serverless event handling.
 
-🚀 Technologies Used
+Technologies Used
 Technology	Purpose
 Terraform	Network layer (VPC, subnets, routing, SGs)
 CloudFormation	Compute + database stack (EC2, ASG, ALB, RDS)
@@ -39,7 +39,8 @@ API Gateway	HTTP endpoints for Lambda
 Step Functions	Orchestrated serverless workflows
 AWS CLI	Resource validation + operations
 Python Boto3	Scripted AWS interactions
-🏗️ 1. Architecture Summary
+
+1. Architecture Summary
 
 The deployment follows a multi-tier cloud architecture consisting of:
 
@@ -63,10 +64,10 @@ Lambda function triggered by S3 uploads
 
 CloudWatch Logs for monitoring and debugging
 
-📌 The architecture diagram is included in the repository.
+The architecture diagram is included in the repository.
 
-📁 2. Repository Structure
-├── terraform/
+2. Repository Structure
+├── Terraform Task tf files/
 │   ├── provider.tf
 │   ├── variables.tf
 │   ├── vpc.tf
@@ -76,10 +77,10 @@ CloudWatch Logs for monitoring and debugging
 │   ├── igw_nat.tf
 │   ├── outputs.tf
 │
-├── cloudformation/
+├── Cloudformation Scripts/
 │   ├── cloudformation-app.yaml
 │
-├── boto3-scripts/
+├── Python Boto3 Scripts/
 │   ├── create_bucket_and_upload.py
 │   ├── list_ec2_instances.py
 │   ├── invoke_lambda.py
@@ -88,7 +89,7 @@ CloudWatch Logs for monitoring and debugging
 ├── architecture-diagram.png
 └── README.md
 
-🌐 3. Terraform Implementation
+3. Terraform Implementation
 
 Terraform provisions the entire network layer, including:
 
@@ -112,9 +113,9 @@ Destroy Infrastructure
 terraform destroy
 
 
-🔒 Terraform state files are excluded via .gitignore.
+Terraform state files are excluded via .gitignore.
 
-🧱 4. CloudFormation Stacks
+4. CloudFormation Stacks
 
 CloudFormation deployed the application layer:
 
@@ -142,7 +143,7 @@ IAM execution role
 
 CloudWatch log groups
 
-🪝 5. AWS Lambda – S3 Event Logging
+5. AWS Lambda – S3 Event Logging
 
 A Python-based Lambda function logs metadata whenever a file is uploaded into the S3 bucket.
 
@@ -157,7 +158,7 @@ Demonstrate serverless + event-driven design
 Trigger
 S3 (ObjectCreated) → Lambda → CloudWatch Logs
 
-🖥️ 6. AWS CLI Interaction
+6. AWS CLI Interaction
 
 The AWS CLI was used to validate resources and manage cloud components.
 
@@ -177,7 +178,7 @@ Create S3 bucket:
 
 aws s3 mb s3://mybucket-unique-id
 
-🐍 7. Python Boto3 Automation Scripts
+7. Python Boto3 Automation Scripts
 
 Python scripts were developed to automate AWS operations:
 
@@ -197,7 +198,7 @@ python script_name.py
 
 Scripts include exception handling, AWS authentication, and parameterization.
 
-🗺️ 8. Architecture Diagram
+8. Architecture Diagram
 
 The repository includes a high-level architecture diagram that illustrates:
 
@@ -213,7 +214,7 @@ Step Functions workflow chain
 
 This diagram is also embedded in the final PDF report.
 
-🎯 9. Bonus Implementation: API Gateway → Lambda
+9. Bonus Implementation: API Gateway → Lambda
 
 As part of extra credit, an HTTP API Gateway triggers a Lambda function via a REST endpoint.
 
@@ -229,7 +230,7 @@ Output returns a JSON message
 
 This validates HTTP-based Lambda invocation and cloud-native serverless routing.
 
-🔄 10. Bonus Implementation: AWS Step Functions Workflow
+10. Bonus Implementation: AWS Step Functions Workflow
 
 A three-state Step Functions machine orchestrates multiple Lambda functions:
 
@@ -243,7 +244,7 @@ The graph visually displays execution sequence and successful termination.
 
 This demonstrates event chaining and workflow automation.
 
-🔧 11. How to Reproduce the Entire Project
+11. How to Reproduce the Entire Project
 Prerequisites
 
 AWS Account
@@ -272,7 +273,7 @@ Test end-to-end flows using Console, CLI, and API Gateway
 
 Clean up AWS resources
 
-📘 12. Academic Integrity & Notes
+12. Academic Integrity & Notes
 
 This project was developed as part of graduate coursework focusing on:
 
@@ -288,7 +289,7 @@ AWS service integration
 
 All implementations were completed independently and tested using real AWS environments.
 
-👤 13. Author
+13. Author
 
 Sahil Shahi
 Graduate Student – M.S. Information Systems
